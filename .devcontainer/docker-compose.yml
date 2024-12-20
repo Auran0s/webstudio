@@ -17,8 +17,9 @@ services:
     entrypoint: ["/usr/local/share/docker-init.sh"]
     # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity
-    # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
-    network_mode: service:db
+    networks:
+      - dokploy-network
+      - webstudio
 
     depends_on:
       db:
@@ -63,9 +64,16 @@ services:
       PGRST_APP_SETTINGS_JWT_EXP: ${JWT_EXPIRY}
     command: "postgrest"
 
-    # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
-    network_mode: service:db
+    networks:
+      - dokploy-network
+      - webstudio
 
 volumes:
   postgres-data:
   docker-data:
+
+networks:
+  dokploy-network:
+    external: true
+  webstudio:
+    external: false
