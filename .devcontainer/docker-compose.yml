@@ -55,7 +55,7 @@ services:
         condition: service_healthy
     restart: unless-stopped
     environment:
-      PGRST_DB_URI: postgresql://postgres:pass@localhost:5434/webstudio
+      PGRST_DB_URI: postgresql://postgres:pass@localhost:3456/webstudio
       PGRST_DB_SCHEMAS: ${PGRST_DB_SCHEMAS:-public}
       PGRST_DB_ANON_ROLE: anon
       PGRST_JWT_SECRET: ${JWT_SECRET:-jwtsecretjwtsecretjwtsecretjwtsecretjwtsecretjwtsecretjwtsecretjwtsecretjwtsecretjwtsecretjwtsecretjwtsecret}
@@ -63,6 +63,8 @@ services:
       PGRST_APP_SETTINGS_JWT_SECRET: ${JWT_SECRET:-jwtsecretjwtsecretjwtsecretjwtsecretjwtsecretjwtsecretjwtsecretjwtsecretjwtsecretjwtsecretjwtsecretjwtsecret}
       PGRST_APP_SETTINGS_JWT_EXP: ${JWT_EXPIRY}
     command: "postgrest"
+    ports:
+      - 3457:3457
 
     networks:
       - dokploy-network
